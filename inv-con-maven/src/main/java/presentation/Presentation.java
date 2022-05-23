@@ -3,7 +3,7 @@ package presentation;
 import dao.Daoimpl;
 import metier.IMetierImpl;
 
-public class presentation {
+public class Presentation {
 
     public static void main(String[] args) {
 
