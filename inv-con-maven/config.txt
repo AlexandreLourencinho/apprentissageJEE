@@ -1,14 +1,2 @@
 ext.DaoImplWebServ
 metier.IMetierImpl
-
-
-
-//
-maven
-mvn compile => compile le projet
-mvn test => compile puis lance les tests unitaires
-mvn package => compile puis tests puis génère .jar ou .war
-mvn install => fais les 3 précédebts puis installe le .jar ou .war dans le repo maven
-mvn deploy => déploie l'application
-mvn site => génère des fichiers HTML contenant la doc via la Javadoc
-

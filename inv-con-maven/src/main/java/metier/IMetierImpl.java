@@ -23,6 +23,9 @@ public class IMetierImpl implements IMetier {
         return (tmp * 540)/Math.cos(tmp*Math.PI);
     }
 
+    public IMetierImpl() {
+    }
+
     /**
      * injection dun objet d'une classe implémentant l'interface IDao
      * @param IDao classe implémentant l'interface IDao

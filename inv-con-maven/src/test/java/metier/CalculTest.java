@@ -4,6 +4,8 @@ package metier;
 import org.junit.Assert;
 import org.junit.Test;
 
+//exemple de tests unitaires
+
 public class CalculTest {
 
     private Calcul calcul;
