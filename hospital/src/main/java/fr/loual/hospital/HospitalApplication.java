@@ -29,7 +29,7 @@ public class HospitalApplication {
                 hospitalServices.savePatient(patient);
             });
 
-            Stream.of("DrPedro","DrFolamour","DrMargueritte")
+            Stream.of("DrPedro","DrFolamour")
                     .forEach( name -> {
                         Medecin medecin = new Medecin();
                         medecin.setSpeciality(Math.random()>0.5? "Cardio" : "dentiste");
