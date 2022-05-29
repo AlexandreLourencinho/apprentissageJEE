@@ -22,6 +22,9 @@ public class UserServicesImpl implements UserServices {
     private UserRepository userRepository;
     private RoleRepository roleRepository;
     private PasswordEncoder passwordEncoder;
+    /*étant tous déclarés en Bean via le userservice dans la fonction start pour les deux premiers ou
+    // la fonction encoder() pour le troisieme, leur attribution dans le constructeur (cf annotation)
+     se fait automatiquement*/
 
 
     @Override
