@@ -1,5 +1,5 @@
 # apprentissageJEE
-progression de mon apprentissage du JEE
+progression de mon apprentissage du JEE. Sur recommandation, je travaille essentiellement (sauf précision inverse) avec JAVA 8
 Le dossier test-Servlet contient seulement quelques tests que j'ai effectué en suivant un tutoriel de chez JetBrains afin de voir le fonctionnement d'un serveur JEE avec glassfish.
 
 Le dossier inversion-controle concerne la partie apprentissage du principe d'inversion de controle et d'injection des dépendances. Ici j'approfondis ma connaissance et mon utilisation des interfaces, afin de créer des applications fermées à la modification et ouvertes à l'extension.
