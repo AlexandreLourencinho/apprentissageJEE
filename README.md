@@ -6,3 +6,5 @@ Le dossier inversion-controle concerne la partie apprentissage du principe d'inv
 
 inv-con-maven repose sur le même principe mais en utilisant un projet et une configuration maven.
 jpa-appr, hospital et jpa-manytomany sont des applications de mon apprentissage sur l'utilisation de SpringData , de Lombok et de l'API JPA en général
+
+mvcthymeleaf consiste en quelques exercices et tests en rendu côté serveur sur un petit projet avec des patients, en utilisant le moteur de template thymeleaf.
