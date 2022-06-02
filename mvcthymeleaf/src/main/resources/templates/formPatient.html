@@ -24,7 +24,8 @@
         </div>
         <div class="form-check">
             <label for="sickness" class="form-check-label">Malade</label>
-            <input type="checkbox" name="sickness" id="sickness" class="form-check-input" th:checked="${patient.sickness}">
+            <input type="checkbox" name="sickness" id="sickness" class="form-check-input"
+                   th:checked="${patient.sickness}">
             <span class="text-danger" th:errors="${patient.sickness}"></span>
         </div>
         <div>
