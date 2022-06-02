@@ -17,14 +17,14 @@ public class MvcthymeleafApplication {
         SpringApplication.run(MvcthymeleafApplication.class, args);
     }
 
-    @Bean
+    //@Bean
     CommandLineRunner start(PatientRepository patientRepository) {
         return args-> {
             Stream.of("Alex","Jean","Michel").forEach(name -> {
                 Patient patient = new Patient();
                 patient.setName(name);
                 patient.setBirthdate(new Date());
-                patient.setScore((int) (Math.random() * 1000));
+                patient.setScore((int) (Math.random() * 100000));
                 patient.setSickness(Math.random() > 0.5);
                 patientRepository.save(patient);
             });
