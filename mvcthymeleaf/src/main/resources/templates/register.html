@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="fr"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+<head th:include="layout/layout :: headerFragment('Liste des patients')">
+</head>
+<body>
+<div layout:fragment="content">
+    <form th:action="@{/registration}" class="form" th:method="post">
+        <div>
+            <label for="username" class="form-label">Nom d'utilisateur :</label>
+            <input type="text" name="username" id="username" th:value="${user.username}" class="form-control">
+            <span class="text-danger" th:errors="${user.username}"></span>
+        </div>
+        <div>
+            <label for="password" class="form-label">Mot de passe :</label>
+            <input type="text" name="password" id="password" class="form-control" th:value="${user.password}">
+            <span class="text-danger" th:errors="${user.password}"></span>
+        </div>
+        <div>
+            <label for="confirmPassword" class="form-label">Confirmez le mot de passe :</label>
+            <input type="text" name="confirmPassword" id="confirmPassword" class="form-control" th:value="${user.confirmPassword}">
+<!--            <span class="text-danger" th:errors="${passwordMessage}"></span>-->
+        </div>
+        <button type="submit" class="btn btn-primary">S'enregistrer</button>
+    </form>
+
+</div>
+</body>
+</html>

@@ -42,11 +42,18 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink2">
                             <li><a class="dropdown-item" href="#" th:href="@{/logout}">Se déconnecter</a></li>
-                            <li><a class="dropdown-item" href="#" th:href="@{/user/index}">onverra</a></li>
+                            <li><a class="dropdown-item" href="#" th:href="@{/user/index}">Index</a></li>
                         </ul>
                     </li>
-                    <li sec:authorize="!isAuthenticated()" class="nav-link">
-                        <a class="nav-link" href="#" th:href="@{/login}">Se connecter</a>
+                    <li class="nav-item dropdown" sec:authorize="!isAuthenticated()">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink3" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            <span>Compte</span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink3">
+                            <li><a class="nav-link" href="#" th:href="@{/login}">Se connecter</a></li>
+                            <li><a class="dropdown-item" href="#" th:href="@{/register}">Créer un compte</a></li>
+                        </ul>
                     </li>
                 </ul>
             </div>

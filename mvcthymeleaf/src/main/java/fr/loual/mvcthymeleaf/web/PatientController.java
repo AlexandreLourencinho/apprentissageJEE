@@ -1,10 +1,14 @@
 package fr.loual.mvcthymeleaf.web;
 
 import fr.loual.mvcthymeleaf.entities.Patient;
+import fr.loual.mvcthymeleaf.entities.User;
 import fr.loual.mvcthymeleaf.repositories.PatientRepository;
+import fr.loual.mvcthymeleaf.repositories.RoleRepository;
+import fr.loual.mvcthymeleaf.repositories.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.UUID;
 
 
 @Controller
@@ -19,6 +24,9 @@ import java.util.List;
 public class PatientController {
 
     private PatientRepository patientRepository;
+    private RoleRepository roleRepository;
+    private UserRepository userRepository;
+    private BCryptPasswordEncoder passwordEncoder;
 
     @GetMapping("/")
     public String home() {
@@ -79,6 +87,26 @@ public class PatientController {
         model.addAttribute("page",page);
         model.addAttribute("keywords", keywords);
         return "editPatient";
+    }
+
+    @GetMapping(path = "/register")
+    public String register(Model model) {
+        model.addAttribute("user", new User());
+        return "register";
+    }
+
+    @PostMapping(path = "/registration")
+    public String registration(Model model, @Valid User user, BindingResult bindingResult) {
+        if(!user.getPassword().equals(user.getConfirmPassword())) {
+            model.addAttribute("passwordMessage", "les mots de passe ne correspondent pas");
+            return "register";
+        }
+        if(bindingResult.hasErrors()) return "register";
+        User u = userRepository.findByUsername(user.getUsername());
+        if(u != null) throw new RuntimeException("utilisateur déjà enregistré");
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userRepository.save(user);
+        return "home";
     }
 
 }
