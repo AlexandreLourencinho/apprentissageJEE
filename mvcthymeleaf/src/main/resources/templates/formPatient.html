@@ -1,17 +1,15 @@
 <!DOCTYPE html>
 <html lang="fr"
-      xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Ajout patient</title>
-    <link rel="stylesheet" href="/webjars/bootstrap/5.1.3/css/bootstrap.min.css">
-    <script src="webjars/bootstrap/5.1.3/js/bootstrap.min.js"></script>
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+<head th:include="layout/layout :: headerFragment('Ajouter un patient')">
 </head>
 <body>
-<div th:replace="~{layout:: header}"></div>
+<div layout:fragment="content">
 <div class="col-md-6 offset-3 mt-3 mb-3">
-    <form th:action="@{save}" class="form" th:method="post">
+    <form th:action="@{/admin/save}" class="form" th:method="post">
         <div>
             <label for="name" class="form-label">Nom</label>
             <input type="text" name="name" id="name" class="form-control" th:value="${patient.name}">
@@ -36,6 +34,6 @@
         <button type="submit" class="btn btn-success">sauvegarder</button>
     </form>
 </div>
-<div th:replace="~{layout::footer}"></div>
+</div>
 </body>
 </html>

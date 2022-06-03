@@ -22,10 +22,10 @@ public class PatientController {
 
     @GetMapping("/")
     public String home() {
-        return "redirect:/index";
+        return "home";
     }
 
-    @GetMapping(path = "/index")
+    @GetMapping(path = "/user/index")
     public String patients(Model model,
                            @RequestParam(name = "page", defaultValue = "0") int page,
                            @RequestParam(name = "size", defaultValue = "5") int size,
@@ -38,25 +38,27 @@ public class PatientController {
         return "patient";
     }
 
-    @DeleteMapping("/delete") // ne pas utiliser getmapping pour le delete - voir deletemapping
-    public String delete(long id, String keywords, int page) {
+    @DeleteMapping("/admin/delete") // ne pas utiliser getmapping pour le delete - voir deletemapping
+    public String delete(long id,
+                         @RequestParam(defaultValue = "") String keywords,
+                         @RequestParam(defaultValue = "0") int page) {
         patientRepository.deleteById(id);
-        return "redirect:/index?page=" + page + "&keywords=" + keywords;
+        return "redirect:/user/index?page=" + page + "&keywords=" + keywords;
     }
 
-    @GetMapping("/patients")
+    @GetMapping("/user/patients")
     @ResponseBody
     public List<Patient> listPatients() {
         return patientRepository.findAll();
     }
 
-    @GetMapping(path = "/formPatient")
+    @GetMapping(path = "/admin/formPatient")
     public String formPatient(Model model) {
         model.addAttribute("patient", new Patient());
         return "formPatient";
     }
 
-    @PostMapping(path = "/save")
+    @PostMapping(path = "/admin/save")
     public String save(Model model,
                        @Valid Patient patient,
                        BindingResult bindingResult,
@@ -66,10 +68,10 @@ public class PatientController {
             return "formPatient";
         }
         patientRepository.save(patient);
-        return "redirect:/index?page=" + page + "&keywords=" + keywords;
+        return "redirect:/user/index?page=" + page + "&keywords=" + keywords;
     }
 
-    @GetMapping(path = "/editPatient")
+    @GetMapping(path = "/admin/editPatient")
     public String editPatient(Model model, long id, @RequestParam(defaultValue = "") String keywords, @RequestParam(defaultValue = "0") int page) {
         Patient patient = patientRepository.findById(id).orElse(null);
         if(patient == null) throw new RuntimeException("patient introuvable");
