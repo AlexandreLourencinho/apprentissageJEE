@@ -46,11 +46,14 @@
                             </a>
                         </td>
                         <td>
-                            <a class="btn btn-danger"
-                               th:href="@{delete(id=${p.id}, keywords = ${keywords}, page = ${currentPage})}"
-                               onclick="return confirm('Etes vous sûr de vouloir supprimer?')">
-                                supprimer
-                            </a>
+                            <form th:action="@{delete(id=${p.id}, keywords = ${keywords}, page = ${currentPage})}" th:method="delete">
+                                <button type="submit" class="btn btn-danger" onclick="confirm('voulez vous vraiment supprimer ce patient?')">Supprimer</button>
+                            </form>
+<!--                            <a class="btn btn-danger"-->
+<!--                               th:href="@{delete(id=${p.id}, keywords = ${keywords}, page = ${currentPage})}"-->
+<!--                               onclick="return confirm('Etes vous sûr de vouloir supprimer?')">-->
+<!--                                supprimer-->
+<!--                            </a>-->
                         </td>
                     </tr>
                     </tbody>
