@@ -93,7 +93,7 @@ public class PatientController {
     public String register(Model model) {
         model.addAttribute("user", new User());
         return "register";
-    }
+    }//@TODO déplacer dans un UserController
 
     @PostMapping(path = "/registration")
     public String registration(Model model, @Valid User user, BindingResult bindingResult) {
@@ -107,7 +107,7 @@ public class PatientController {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
         return "home";
-    }
+    }//@TODO déplacer dans un UserController
 
 }
 
