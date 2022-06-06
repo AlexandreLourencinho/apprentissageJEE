@@ -2,6 +2,7 @@ package fr.loual.mvcthymeleaf;
 
 import fr.loual.mvcthymeleaf.entities.Patient;
 import fr.loual.mvcthymeleaf.repositories.PatientRepository;
+import fr.loual.mvcthymeleaf.security.service.SecurityService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -20,7 +21,7 @@ public class MvcthymeleafApplication {
         SpringApplication.run(MvcthymeleafApplication.class, args);
     }
 
-    //@Bean
+    @Bean
     CommandLineRunner start(PatientRepository patientRepository) {
         return args-> {
             Stream.of("Alex","Jean","Michel").forEach(name -> {
@@ -41,6 +42,23 @@ public class MvcthymeleafApplication {
     @Bean
     public PasswordEncoder encoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    //@Bean
+    public CommandLineRunner saveUsers(SecurityService securityService) {
+        return args -> {
+            securityService.saveNewUser("Alexandre","1234","1234");
+            securityService.saveNewUser("Joseph", "12345", "12345");
+            securityService.saveNewUser("Paul", "12345", "12345");
+
+            securityService.saveNewRole("USER", "");
+            securityService.saveNewRole("ADMIN", "");
+
+            securityService.addRoleToUser("Alexandre", "ADMIN");
+            securityService.addRoleToUser("Alexandre", "USER");
+            securityService.addRoleToUser("Joseph", "USER");
+            securityService.addRoleToUser("Paul", "USER");
+        };
     }
 
 }

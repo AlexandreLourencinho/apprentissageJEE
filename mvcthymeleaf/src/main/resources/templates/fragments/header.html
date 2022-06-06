@@ -28,7 +28,7 @@
                             Patients
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li sec:authorize="hasRole('ADMIN')"><a class="dropdown-item" href="#"
+                            <li sec:authorize="hasAnyAuthority('ADMIN')"><a class="dropdown-item" href="#"
                                                                     th:href="@{/admin/formPatient}">Nouveau</a></li>
                             <li><a class="dropdown-item" href="#" th:href="@{/user/index}">Chercher</a></li>
                         </ul>
@@ -51,7 +51,7 @@
                             <span>Compte</span>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink3">
-                            <li><a class="nav-link" href="#" th:href="@{/login}">Se connecter</a></li>
+                            <li><a class="dropdown-item" href="#" th:href="@{/login}">Se connecter</a></li>
                             <li><a class="dropdown-item" href="#" th:href="@{/register}">Créer un compte</a></li>
                         </ul>
                     </li>

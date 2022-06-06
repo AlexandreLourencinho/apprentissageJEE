@@ -38,15 +38,15 @@
                         <td th:text="${p.birthdate}"></td>
                         <td th:text="${p.sickness}"></td>
                         <td th:text="${p.score}"></td>
-                        <td sec:authorize="hasRole('ADMIN')">
+                        <td sec:authorize="hasAnyAuthority('ADMIN')">
                             <a class="btn btn-info"
                                th:href="@{/admin/editPatient(id=${p.id}, keywords = ${keywords}, page = ${currentPage})}">
                                 Modifier
                             </a>
                         </td>
-                        <td sec:authorize="hasRole('ADMIN')">
+                        <td sec:authorize="hasAnyAuthority('ADMIN')" onsubmit="confirm('voulez vous vraiment supprimer ce patient?')">
                             <form th:action="@{/admin/delete(id=${p.id}, keywords = ${keywords}, page = ${currentPage})}" th:method="delete">
-                                <button type="submit" class="btn btn-danger" onclick="confirm('voulez vous vraiment supprimer ce patient?')">Supprimer</button>
+                                <button type="submit" class="btn btn-danger">Supprimer</button>
                             </form>
                         </td>
                     </tr>

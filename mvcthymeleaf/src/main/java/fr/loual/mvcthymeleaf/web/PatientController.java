@@ -1,10 +1,9 @@
 package fr.loual.mvcthymeleaf.web;
 
 import fr.loual.mvcthymeleaf.entities.Patient;
-import fr.loual.mvcthymeleaf.entities.User;
 import fr.loual.mvcthymeleaf.repositories.PatientRepository;
-import fr.loual.mvcthymeleaf.repositories.RoleRepository;
-import fr.loual.mvcthymeleaf.repositories.UserRepository;
+import fr.loual.mvcthymeleaf.security.repositories.AppRoleRepository;
+import fr.loual.mvcthymeleaf.security.repositories.AppUserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.UUID;
 
 
 @Controller
@@ -24,8 +22,8 @@ import java.util.UUID;
 public class PatientController {
 
     private PatientRepository patientRepository;
-    private RoleRepository roleRepository;
-    private UserRepository userRepository;
+    private AppRoleRepository roleRepository;
+    private AppUserRepository appUserRepository;
     private BCryptPasswordEncoder passwordEncoder;
 
     @GetMapping("/")
@@ -89,25 +87,26 @@ public class PatientController {
         return "editPatient";
     }
 
-    @GetMapping(path = "/register")
-    public String register(Model model) {
-        model.addAttribute("user", new User());
-        return "register";
-    }//@TODO déplacer dans un UserController
+//    @GetMapping(path = "/register")
+//    public String register(Model model) {
+//        model.addAttribute("user", new AppUser());
+//        return "register";
+//    }//@TODO déplacer dans un UserController et refaire pour prendre en compte les changements avec spring security
+    // @TODO faire une page de gestion des utilisateurs pour les admin
 
-    @PostMapping(path = "/registration")
-    public String registration(Model model, @Valid User user, BindingResult bindingResult) {
-        if(!user.getPassword().equals(user.getConfirmPassword())) {
-            model.addAttribute("passwordMessage", "les mots de passe ne correspondent pas");
-            return "register";
-        }
-        if(bindingResult.hasErrors()) return "register";
-        User u = userRepository.findByUsername(user.getUsername());
-        if(u != null) throw new RuntimeException("utilisateur déjà enregistré");
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userRepository.save(user);
-        return "home";
-    }//@TODO déplacer dans un UserController
+//    @PostMapping(path = "/registration")
+//    public String registration(Model model, @Valid AppUser appUser, BindingResult bindingResult) {
+//        if(!appUser.getPassword().equals(appUser.getConfirmPassword())) {
+//            model.addAttribute("passwordMessage", "les mots de passe ne correspondent pas");
+//            return "register";
+//        }
+//        if(bindingResult.hasErrors()) return "register";
+//        AppUser u = appUserRepository.findByUsername(appUser.getUsername());
+//        if(u != null) throw new RuntimeException("utilisateur déjà enregistré");
+//        appUser.setPassword(passwordEncoder.encode(appUser.getPassword()));
+//        appUserRepository.save(appUser);
+//        return "home";
+//    }//@TODO déplacer dans un UserController
 
 }
 
