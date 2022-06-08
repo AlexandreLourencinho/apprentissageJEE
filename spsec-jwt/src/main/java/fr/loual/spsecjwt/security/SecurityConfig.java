@@ -16,6 +16,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration @AllArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    // @TODO voir pour remplacer le WebSecurityConfigurerAdapter (deprecated) - note : potentiellement pas encore de doc
 
     private UserDetailsServiceImpl userDetailsService;
 
