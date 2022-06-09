@@ -50,11 +50,12 @@ public class AccountRestController {
 
     @GetMapping(path = "/refreshToken")
     public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws Exception{
-       String authToken = request.getHeader(JWTUtil.AUTH_HEADER);
-        if (authToken != null && authToken.startsWith(JWTUtil.PREFIX)) {
+       String refreshToken = request.getHeader(JWTUtil.AUTH_HEADER);
+        if (refreshToken != null && refreshToken.startsWith(JWTUtil.PREFIX)) {
             try {
                 JWTServices jwtServices = new JWTServices(accountService);
-                Map<String,String> idToken = jwtServices.gett(null,authToken,request.getRequestURL().toString());
+                Map<String,String> idToken = jwtServices.gett(null,refreshToken,request.getRequestURL().toString(), false);
+                idToken.put("refresh-token", refreshToken.substring(JWTUtil.PREFIX.length()));
                 response.setContentType("application/json"); // set le content type
                 new ObjectMapper().writeValue(response.getOutputStream(), idToken); /**/ // écrit une valeur sur un objet (ici objet response) dans le corps de la response
 //                filterChain.doFilter(request, response);

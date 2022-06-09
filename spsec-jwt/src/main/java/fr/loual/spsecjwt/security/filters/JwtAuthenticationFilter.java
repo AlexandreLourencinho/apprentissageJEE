@@ -40,7 +40,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         System.out.println("successful authentication");
         User user = (User) authResult.getPrincipal(); // cast car getprincipal() retourne un type Object
         JWTServices jwtServices = new JWTServices();
-        Map<String,String> idToken =jwtServices.gett(user, null, request.getRequestURL().toString());
+        Map<String,String> idToken =jwtServices.gett(user, null, request.getRequestURL().toString(), true);
         response.setContentType("application/json"); // set le content type
         new ObjectMapper().writeValue(response.getOutputStream(), idToken); // écrit une valeur sur un objet (ici objet response) dans le corps de la response
     }

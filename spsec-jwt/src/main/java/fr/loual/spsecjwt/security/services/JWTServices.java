@@ -24,7 +24,7 @@ public class JWTServices {
 
     private AccountService accountService;
 
-    public Map<String, String> gett(@Nullable User user, @Nullable String authToken, String requestUrl) {
+    public Map<String, String> gett(@Nullable User user, @Nullable String authToken, String requestUrl, boolean needRefresh) {
         Algorithm algorithm = Algorithm.HMAC256(JWTUtil.SECRET);
         AppUser appUser = null;
         String jwtAccessToken;
@@ -46,12 +46,14 @@ public class JWTServices {
                     .sign(algorithm);
             Map<String, String> idToken = new HashMap<>();
             idToken.put("access-token", jwtAccessToken);
-            String jwtRefreshToken = JWT.create()
-                    .withSubject( user != null ? user.getUsername() : appUser.getUsername()) // subject
-                    .withExpiresAt(new Date(System.currentTimeMillis() + JWTUtil.EXPIRE_REFRESH_TOKEN)) // expiration : 5 (minutes) *60 (secondes) * 1000 (milisecondes)
-                    .withIssuer(requestUrl) // origine du token
-                    .sign(algorithm);
-            idToken.put("refresh-token", jwtRefreshToken);
+            if(needRefresh) {
+                String jwtRefreshToken = JWT.create()
+                        .withSubject( user != null ? user.getUsername() : appUser.getUsername()) // subject
+                        .withExpiresAt(new Date(System.currentTimeMillis() + JWTUtil.EXPIRE_REFRESH_TOKEN)) // expiration : 5 (minutes) *60 (secondes) * 1000 (milisecondes)
+                        .withIssuer(requestUrl) // origine du token
+                        .sign(algorithm);
+                idToken.put("refresh-token", jwtRefreshToken);
+            }
             return idToken;
         } else {
             throw new RuntimeException("User et AppUser non définis");
