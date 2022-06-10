@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class JwtAuthorizationFilter extends OncePerRequestFilter {
@@ -32,9 +34,9 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
                 try {
                     JWTServices jwtServices = new JWTServices();
-                    String username = jwtServices.getDecodedUsername(algorithm, jwtAuthorizationToken);
-                    Collection<GrantedAuthority> authorities = jwtServices.getDecodedRoles(algorithm, jwtAuthorizationToken)
-                            .stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+                    HashMap<String, List<String>> decodedJwt = jwtServices.getDecodedJWTElements(algorithm, jwtAuthorizationToken);
+                    String username = decodedJwt.get("username").get(0);
+                    Collection<GrantedAuthority> authorities = decodedJwt.get("roles").stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList()); ;
                     UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username,
                             null,
                             authorities);

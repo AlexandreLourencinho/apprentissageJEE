@@ -1,9 +1,5 @@
 package fr.loual.spsecjwt.security.web;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.JWTVerifier;
-import com.auth0.jwt.algorithms.Algorithm;
-import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.loual.spsecjwt.security.JWTUtil;
 import fr.loual.spsecjwt.security.entities.AppRole;
@@ -22,7 +18,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.security.Principal;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @RestController @AllArgsConstructor
 public class AccountRestController {
@@ -54,7 +49,7 @@ public class AccountRestController {
         if (refreshToken != null && refreshToken.startsWith(JWTUtil.PREFIX)) {
             try {
                 JWTServices jwtServices = new JWTServices(accountService);
-                Map<String,String> idToken = jwtServices.gett(null,refreshToken,request.getRequestURL().toString(), false);
+                Map<String,String> idToken = jwtServices.getIdToken(null,refreshToken,request.getRequestURL().toString(), false);
                 idToken.put("refresh-token", refreshToken.substring(JWTUtil.PREFIX.length()));
                 response.setContentType("application/json"); // set le content type
                 new ObjectMapper().writeValue(response.getOutputStream(), idToken); /**/ // écrit une valeur sur un objet (ici objet response) dans le corps de la response
