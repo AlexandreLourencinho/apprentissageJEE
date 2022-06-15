@@ -1,5 +1,6 @@
 package fr.loual.ebankingbackend.entities;
 
+//import com.fasterxml.jackson.annotation.JsonProperty; (ancien, pour les JsonProperty
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
