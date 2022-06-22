@@ -1,6 +1,6 @@
 package fr.loual.ebankingbackend.services;
 
-import fr.loual.ebankingbackend.dtos.CustomerDTO;
+import fr.loual.ebankingbackend.dtos.*;
 import fr.loual.ebankingbackend.entities.*;
 import fr.loual.ebankingbackend.enums.OperationType;
 import fr.loual.ebankingbackend.exceptions.BalanceNotSufficientException;
@@ -17,15 +17,16 @@ public interface BankAccountService {
 
     void deleteCustomer(Long customerId);
 
-    CurrentBankAccount saveCurrentBankAccount(double initialBalance, Long customerId, double overdraft) throws CustomerNotFoundException;
-    SavingBankAccount saveSavingBankAccount(double initialBalance, Long customerId, double interestRate) throws CustomerNotFoundException;
+    CurrentBankAccountDTO saveCurrentBankAccount(double initialBalance, Long customerId, double overdraft) throws CustomerNotFoundException;
+    SavingBankAccountDTO saveSavingBankAccount(double initialBalance, Long customerId, double interestRate) throws CustomerNotFoundException;
     List<CustomerDTO> listCustomer();
     AccountOperation operate(BankAccount bankAccount, OperationType operationType, double amount, String description);
-    BankAccount getBankAccount(String accountId) throws BankAccountNotFoundException;
+    BankAccountDTO getBankAccountDTO(String accountId) throws BankAccountNotFoundException;
     void debit(String accountId, double amount, String description) throws BankAccountNotFoundException, BalanceNotSufficientException;
     void credit(String accountId, double amount, String description) throws BankAccountNotFoundException;
     void transfert(String sourceAccountId, String destinationAccountId, double amount) throws BankAccountNotFoundException, BalanceNotSufficientException;
     CustomerDTO getCustomer(Long customerId) throws CustomerNotFoundException;
-    List<BankAccount> bankAccountList();
-
+    List<BankAccountDTO> bankAccountList();
+    List<AccountOperationDTO> accountHistory(String accountId);
+    AccountHistoryDTO getAccountHistory(String accountId, int page, int size) throws BankAccountNotFoundException;
 }
