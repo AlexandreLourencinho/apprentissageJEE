@@ -7,8 +7,6 @@ import fr.loual.ebankingbackend.dtos.SavingBankAccountDTO;
 import fr.loual.ebankingbackend.entities.*;
 import fr.loual.ebankingbackend.enums.AccountStatus;
 import fr.loual.ebankingbackend.enums.OperationType;
-import fr.loual.ebankingbackend.exceptions.BalanceNotSufficientException;
-import fr.loual.ebankingbackend.exceptions.BankAccountNotFoundException;
 import fr.loual.ebankingbackend.exceptions.CustomerNotFoundException;
 import fr.loual.ebankingbackend.repositories.BankAccountOperationRepository;
 import fr.loual.ebankingbackend.repositories.BankAccountRepository;

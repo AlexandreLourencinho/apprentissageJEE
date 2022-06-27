@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface BankAccountRepository extends JpaRepository<BankAccount, String> {
 
-    BankAccount findByCustomer(Customer customer);
+    BankAccount findByCustomer(Customer customer); // TODO : impl
 
 }
