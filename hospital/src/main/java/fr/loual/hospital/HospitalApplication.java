@@ -29,7 +29,7 @@ public class HospitalApplication {
                 hospitalServices.savePatient(patient);
             });
 
-            Stream.of("DrPedro","DrFolamour")
+            Stream.of("DrUn","DrDeux")
                     .forEach( name -> {
                         Medecin medecin = new Medecin();
                         medecin.setSpeciality(Math.random()>0.5? "Cardio" : "dentiste");
@@ -41,7 +41,7 @@ public class HospitalApplication {
             Patient patient = hospitalServices.findPatientById(1L);
             Patient patient2 = hospitalServices.findPatientByName("Morgane");
 
-            Medecin medecin = hospitalServices.findMedecinByName("DrPedro");
+            Medecin medecin = hospitalServices.findMedecinByName("DrUn");
 
             RendezVous rendezVous = new RendezVous();
             rendezVous.setDate(new Date());

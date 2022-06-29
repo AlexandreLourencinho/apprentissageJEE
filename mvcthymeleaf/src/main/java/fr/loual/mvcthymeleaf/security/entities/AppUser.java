@@ -24,8 +24,6 @@ public class AppUser {
     @NotEmpty
     private String password;
     private boolean active;
-//    @Transient
-//    private String confirmPassword;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),

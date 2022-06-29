@@ -9,7 +9,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import sun.security.util.Password;
 
 import java.util.stream.Stream;
 
@@ -27,8 +26,7 @@ public class JpaManytomanyApplication {
             Stream.of("user1", "user2", "user3").forEach(user->{
                 User u = new User();
                 u.setUsername(user);
-                u.setPassword("1234"); // voir plus tard pour le hashage avec bcrypt, pas de stockage en clair
-                // par défaut évidemment...
+                u.setPassword("1234");
                 userServices.addNewUser(u);
             });
 

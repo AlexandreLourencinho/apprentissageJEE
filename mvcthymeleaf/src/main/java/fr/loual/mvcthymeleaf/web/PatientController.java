@@ -44,7 +44,7 @@ public class PatientController {
         return "patient";
     }
 
-    @DeleteMapping("/admin/delete") // ne pas utiliser getmapping pour le delete - voir deletemapping
+    @DeleteMapping("/admin/delete")
     public String delete(long id,
                          @RequestParam(defaultValue = "") String keywords,
                          @RequestParam(defaultValue = "0") int page) {

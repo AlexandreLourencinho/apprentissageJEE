@@ -12,7 +12,6 @@ public interface IHospitalServices {
     Patient findPatientById(Long id);
     Patient findPatientByName(String name);
     Medecin findMedecinByName(String name);
-
     RendezVous saveRendezVous(RendezVous rendezVous);
     RendezVous findRendezVousById(Long id);
     Consultation saveConsultation(Consultation consultation);
