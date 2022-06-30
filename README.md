@@ -112,5 +112,40 @@ et les formulaires de modification d'ajout et la suppression sont fonctionnels e
 ![exemple rendu](assets/capture_mvcthymeleaf_rendu.PNG)
 
 # spsec-jwt
+Ce projet à consisté en une introduction plus poussée a spring security et à l'utilisation des JWT dans le cadre de l'accès aux données.
+
+
+![](assets/capture_spsec_jwtauthfilter.png)
+
+le code ici est utilisé pour filtration des requêtes, qui concernent toutes les requêtes sauf celle demandant un renouvellement 
+de l'access JWT et celle concernant l'authentification.
+
+
+![](assets/capture_spsec_jwtauthentfilter.png)
+
+ici, l'implémentation et l'utilisation de attemptAuthentication et de successfulAuthentication hérités de la classe
+UsernamePasswordAuthenticationFilter de spring security.
+
+
 
 # e-banking
+Un de mes derniers exercices en date, avant que je n'attaque un projet plus complet compilant tout ce que j'ai appris et 
+utilisé jusqu'ici. 
+Cet exercice à été l'occasion de m'introduire aux DTOs ainsi qu'aux mappers (sans framework type mapstruct ou jmapper pour l'instant, afin d'en comprendre les principes), que j'aurai 
+l'occasion de mettre en pratique plus tard.
+vous pourrez voir la partie front de ce projet en [cliquant ici](https://github.com/AlexandreLourencinho/formationAngular/tree/master/ebanking-front).
+
+![structure du projet](assets/capture_ebanking_back_project.png)
+
+Ici, l'organisation générale du projet, afin de donner une idée et un aperçu des concepts et outils mobilisés lors de cet exercice.
+
+![exemple de mapper](assets/capture_ebanking_back_mapper.png)
+
+Un morceau du mapper que j'ai utilisé dans cet exercice pour gérer les DTOs 
+
+![un des deux controller du projet](assets/capture_ebanking_back_restcontroller.png)
+
+Une partie d'un des deux controller utilisé dans le projet.
+
+
+# a venir

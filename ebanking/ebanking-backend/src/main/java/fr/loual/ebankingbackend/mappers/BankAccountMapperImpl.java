@@ -11,6 +11,9 @@ import fr.loual.ebankingbackend.entities.SavingBankAccount;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.function.DoubleToIntFunction;
+import java.util.function.IntConsumer;
+
 // @TODO utilisation de MapStruct ou Jmapper plus tard: but de savoir les bases pour pouvoir palier aux eventuelles lacunes des framework et comprendre le fonctionnement
 
 @Service
