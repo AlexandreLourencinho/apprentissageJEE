@@ -17,12 +17,15 @@ public class AppUser {
 
     @Id
     private String id;
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String username;
+    @Column(nullable = false)
     private String name;
+    @Column(nullable = false)
     private String firstname;
+    @Column(nullable = false)
     private String password;
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String email;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "users_roles",
