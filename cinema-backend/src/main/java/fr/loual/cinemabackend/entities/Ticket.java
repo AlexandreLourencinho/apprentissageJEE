@@ -21,7 +21,7 @@ public class Ticket {
     private String clientName;
     private double price;
     private int paymentCode;
-    private boolean logical;
+    private boolean reserved;
     @ManyToOne
     private Seance seance;
     @OneToOne

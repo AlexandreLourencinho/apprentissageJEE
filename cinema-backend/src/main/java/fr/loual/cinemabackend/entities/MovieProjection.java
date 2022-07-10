@@ -20,7 +20,6 @@ public abstract class MovieProjection {
     private String id;
     private Date projectionDate;
     private double price;
-    private Date beginDate;
     @ManyToOne
     private Movie movie;
     @ManyToOne
