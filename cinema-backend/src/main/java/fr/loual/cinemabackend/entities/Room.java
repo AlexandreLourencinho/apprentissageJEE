@@ -17,6 +17,7 @@ import java.util.Objects;
 @Setter
 @ToString
 public class Room {
+
     @Id
     private String id;
     private String name;
