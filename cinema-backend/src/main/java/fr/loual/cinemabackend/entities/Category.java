@@ -17,6 +17,7 @@ public class Category {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(unique = true, length = 50)
     private String name;
     @OneToMany(mappedBy = "category")
     @ToString.Exclude
