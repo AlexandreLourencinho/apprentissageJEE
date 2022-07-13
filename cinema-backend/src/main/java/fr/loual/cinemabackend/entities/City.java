@@ -16,6 +16,7 @@ public class City {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(unique = true, length = 70)
     private String name;
     private double longitude;
     private double latitude;
