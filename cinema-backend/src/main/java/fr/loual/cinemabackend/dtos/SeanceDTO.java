@@ -1,7 +1,10 @@
 package fr.loual.cinemabackend.dtos;
 
+import lombok.Data;
+
 import java.util.Date;
 
+@Data
 public class SeanceDTO {
 
     private String id;

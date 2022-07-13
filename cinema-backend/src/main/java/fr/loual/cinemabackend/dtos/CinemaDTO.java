@@ -1,5 +1,8 @@
 package fr.loual.cinemabackend.dtos;
 
+import lombok.Data;
+
+@Data
 public class CinemaDTO {
 
     private String id;
