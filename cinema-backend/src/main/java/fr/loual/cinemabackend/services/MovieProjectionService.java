@@ -11,7 +11,7 @@ public interface MovieProjectionService {
     CityDTO addCity(CityDTO cityDTO) throws InvalidCityArgumentException, CityAlreadyRegisteredException;
     CinemaDTO addCinema(CinemaDTO cinemaDTO) throws InvalidCinemaArgumentException, CinemaAlreadyExistsException;
     CategoryDTO addCategory(CategoryDTO categoryDTO) throws InvalidCategoryArgumentException, CategoryAlreadyExistsException;
-    MovieDTO addMovie(MovieDTO movieDTO);
+    MovieDTO addMovie(MovieDTO movieDTO) throws InvalidMovieArgumentException, MovieAlreadyExistsException;
     RoomDTO addRoomToCinema(RoomDTO roomDTO);
     PlaceDTO addPlaceToRoom(PlaceDTO placeDTO);
     TicketDTO addTicket(TicketDTO ticketDTO);
