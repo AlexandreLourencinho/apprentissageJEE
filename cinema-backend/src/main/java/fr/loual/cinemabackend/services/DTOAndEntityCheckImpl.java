@@ -1,9 +1,6 @@
 package fr.loual.cinemabackend.services;
 
-import fr.loual.cinemabackend.dtos.CategoryDTO;
-import fr.loual.cinemabackend.dtos.CinemaDTO;
-import fr.loual.cinemabackend.dtos.CityDTO;
-import fr.loual.cinemabackend.dtos.MovieDTO;
+import fr.loual.cinemabackend.dtos.*;
 
 import java.util.Objects;
 import java.util.stream.Stream;
@@ -34,6 +31,12 @@ public class DTOAndEntityCheckImpl implements DTOAndEntityCheck {
         Object[] arr = new Object[]{movieDTO.getMaker(), movieDTO.getTitle(), movieDTO.getPicture(),movieDTO.getReleaseate(), movieDTO.getDuration()};
         boolean movie = verify(arr);
         return category && movie;
+    }
+
+    @Override
+    public boolean checkRoomDTO(RoomDTO roomDTO) {
+        Object[] arr = new Object[]{roomDTO.getName(), roomDTO.getRoomSize(), roomDTO.getCinema()};
+        return verify(arr);
     }
 
 
