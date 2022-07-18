@@ -12,7 +12,7 @@ public interface MovieProjectionService {
     CinemaDTO addCinema(CinemaDTO cinemaDTO) throws InvalidCinemaArgumentException, CinemaAlreadyExistsException;
     CategoryDTO addCategory(CategoryDTO categoryDTO) throws InvalidCategoryArgumentException, CategoryAlreadyExistsException;
     MovieDTO addMovie(MovieDTO movieDTO) throws InvalidMovieArgumentException, MovieAlreadyExistsException;
-    RoomDTO addRoomToCinema(RoomDTO roomDTO);
+    RoomDTO addRoomToCinema(RoomDTO roomDTO) throws InvalidRoomArgumentException, RoomAlreadyExistsException, CinemaNotFoundException;
     PlaceDTO addPlaceToRoom(PlaceDTO placeDTO);
     TicketDTO addTicket(TicketDTO ticketDTO);
     SeanceDTO addSeance(SeanceDTO seanceDTO);

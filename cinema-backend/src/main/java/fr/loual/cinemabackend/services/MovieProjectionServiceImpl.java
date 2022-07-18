@@ -1,10 +1,7 @@
 package fr.loual.cinemabackend.services;
 
 import fr.loual.cinemabackend.dtos.*;
-import fr.loual.cinemabackend.entities.Category;
-import fr.loual.cinemabackend.entities.Cinema;
-import fr.loual.cinemabackend.entities.City;
-import fr.loual.cinemabackend.entities.Movie;
+import fr.loual.cinemabackend.entities.*;
 import fr.loual.cinemabackend.exceptions.*;
 import fr.loual.cinemabackend.repositories.*;
 import fr.loual.cinemabackend.mappers.CinemaMapper;
@@ -33,6 +30,10 @@ public class MovieProjectionServiceImpl implements MovieProjectionService {
     private TicketRepository ticketRepository;
     private DTOAndEntityCheck dtoAndEntityCheck;
     private CinemaMapper mapper;
+
+    // TODO externaliser? code qui se répète. + refléchir aux dtos, collections?
+    // TODO 3 erreurs génériques (potentiellement + par la suite) : InvalidArgument, AlreadyExists,NotFound. Le message d'erreur devrait suffire pour savoir ce qui existe déjà ou non.
+    // permettra de ne pas avoir 50 Exceptions qui au final fond la même chose
 
     @Override
     public CityDTO addCity(CityDTO cityDTO) throws InvalidCityArgumentException, CityAlreadyRegisteredException {
@@ -78,14 +79,29 @@ public class MovieProjectionServiceImpl implements MovieProjectionService {
         if (movieRepo != null) throw new MovieAlreadyExistsException(ServicesUtils.alreadyExistsErrorMessage("Le film"));
         log.info("--Enregistrement d'un nouveau film...--");
         Movie movie = mapper.movieDTOToMovie(movieDTO);
+        movie.setId(UUID.randomUUID().toString());
         movieRepository.save(movie);
         log.info(ServicesUtils.infoMessage("Le film", movie.getTitle()));
         return mapper.movieToMovieDTO(movie);
-    } // TODO externaliser? code qui se répète
+    }
 
     @Override
-    public RoomDTO addRoomToCinema(RoomDTO room) {
-        return null;
+    public RoomDTO addRoomToCinema(RoomDTO roomDTO) throws InvalidRoomArgumentException, RoomAlreadyExistsException, CinemaNotFoundException {
+        if(!dtoAndEntityCheck.checkRoomDTO(roomDTO)) throw new InvalidRoomArgumentException(ServicesUtils.exceptionMessage("une salle"));
+        Cinema cine = cinemaRepository.findByAltitudeAndLatitudeAndLongitude(roomDTO.getCinema().getAltitude(),
+                roomDTO.getCinema().getLatitude(), roomDTO.getCinema().getLongitude());
+        if(cine == null) throw new CinemaNotFoundException(ServicesUtils.notFoundMessage("Le cinéma"));
+        Room roomRepo = roomRepository.findByNameAndCinema(roomDTO.getName(), mapper.cinemaDTOToCinema(roomDTO.getCinema()));
+        if (roomRepo != null) throw new RoomAlreadyExistsException(ServicesUtils.alreadyExistsErrorMessage("La salle"));
+        log.info("--Enregistrement d'une nouvelle salle...--");
+        Room room = mapper.roomDTOToRoom(roomDTO);
+        room.setId(UUID.randomUUID().toString());
+        Cinema cinema = room.getCinema();
+        cinema.getRooms().add(room);
+        roomRepository.save(room);
+        cinemaRepository.save(cinema);
+        log.info(ServicesUtils.infoMessage("La salle", room.getName()));
+        return mapper.roomToRoomDTO(room);
     }
 
     @Override
@@ -117,4 +133,5 @@ public class MovieProjectionServiceImpl implements MovieProjectionService {
     public List<SeanceDTO> getSeanceForMovie(MovieDTO movie, Date date) {
         return null;
     }
+
 }
