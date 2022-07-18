@@ -14,4 +14,8 @@ public class ServicesUtils {
         return String.format("-- %s %s à bien été enregistré --",type, name);
     }
 
+    public static String notFoundMessage(String message) {
+        return String.format("%s n'existe pas ou n'a pas encore été ajouté.", message);
+    }
+
 }
