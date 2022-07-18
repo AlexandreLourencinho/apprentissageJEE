@@ -2,6 +2,8 @@ package fr.loual.cinemabackend.dtos;
 
 import lombok.Data;
 
+import java.util.Collection;
+
 @Data
 public class CinemaDTO {
 
@@ -12,4 +14,5 @@ public class CinemaDTO {
     private double altitude;
     private int numberOfRooms;
     private CityDTO city;
+    private Collection<RoomDTO> rooms;
 }
