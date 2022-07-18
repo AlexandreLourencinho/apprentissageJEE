@@ -1,13 +1,7 @@
 package fr.loual.cinemabackend.mappers;
 
-import fr.loual.cinemabackend.dtos.CategoryDTO;
-import fr.loual.cinemabackend.dtos.CinemaDTO;
-import fr.loual.cinemabackend.dtos.CityDTO;
-import fr.loual.cinemabackend.dtos.MovieDTO;
-import fr.loual.cinemabackend.entities.Category;
-import fr.loual.cinemabackend.entities.Cinema;
-import fr.loual.cinemabackend.entities.City;
-import fr.loual.cinemabackend.entities.Movie;
+import fr.loual.cinemabackend.dtos.*;
+import fr.loual.cinemabackend.entities.*;
 import org.mapstruct.Mapper;
 
 @Mapper
@@ -21,5 +15,7 @@ public interface CinemaMapper {
     CategoryDTO categoryToCategoryDTO(Category category);
     Movie movieDTOToMovie(MovieDTO movieDTO);
     MovieDTO movieToMovieDTO(Movie movie);
+    Room roomDTOToRoom(RoomDTO roomDTO);
+    RoomDTO roomToRoomDTO(Room room);
 
 }
