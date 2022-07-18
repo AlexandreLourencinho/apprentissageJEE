@@ -36,10 +36,10 @@ public class MovieProjectionServiceImpl implements MovieProjectionService {
     // permettra de ne pas avoir 50 Exceptions qui au final fond la même chose
 
     @Override
-    public CityDTO addCity(CityDTO cityDTO) throws InvalidCityArgumentException, CityAlreadyRegisteredException {
+    public CityDTO addCity(CityDTO cityDTO) throws InvalidCityArgumentException, CityAlreadyExistsException {
         if(!dtoAndEntityCheck.checkCityDTO(cityDTO)) throw new InvalidCityArgumentException(ServicesUtils.exceptionMessage("une ville"));
         City cityRepo = cityRepository.findByName(cityDTO.getName());
-        if(cityRepo != null) throw new CityAlreadyRegisteredException(ServicesUtils.alreadyExistsErrorMessage("La ville"));
+        if(cityRepo != null) throw new CityAlreadyExistsException(ServicesUtils.alreadyExistsErrorMessage("La ville"));
         log.info("--Enregistrement d'une nouvelle ville...-");
         City city = mapper.cityDTOToCity(cityDTO);
         cityRepository.save(city);

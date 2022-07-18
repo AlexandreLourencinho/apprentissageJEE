@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface MovieProjectionService {
 
-    CityDTO addCity(CityDTO cityDTO) throws InvalidCityArgumentException, CityAlreadyRegisteredException;
+    CityDTO addCity(CityDTO cityDTO) throws InvalidCityArgumentException, CityAlreadyExistsException;
     CinemaDTO addCinema(CinemaDTO cinemaDTO) throws InvalidCinemaArgumentException, CinemaAlreadyExistsException;
     CategoryDTO addCategory(CategoryDTO categoryDTO) throws InvalidCategoryArgumentException, CategoryAlreadyExistsException;
     MovieDTO addMovie(MovieDTO movieDTO) throws InvalidMovieArgumentException, MovieAlreadyExistsException;
