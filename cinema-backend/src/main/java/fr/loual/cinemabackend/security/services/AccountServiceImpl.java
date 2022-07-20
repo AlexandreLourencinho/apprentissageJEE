@@ -14,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -56,8 +57,9 @@ public class AccountServiceImpl implements AccountService {
         AppUser findUser = loadUserByUsername(user.getUsername());
         if(findRole == null) throw new RoleNotFoundException("Le rôle n'existe pas.");
         if(findUser == null) throw new UserNotFoundException("L'utilisateur n'a pas été trouvé.");
-        user.getRoles().add(role);
-        userRepository.save(user);
+        if(findUser.getRoles() == null) findUser.setRoles(new ArrayList<>());
+        findUser.getRoles().add(role);
+        userRepository.save(findUser);
         log.info("Le rôle " + role.getName() + " à bien été assigné à l'utilisateur " + user.getUsername() + ".");
     }
 
