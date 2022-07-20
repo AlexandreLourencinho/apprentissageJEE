@@ -30,9 +30,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.authorizeRequests().antMatchers("/h2-console/**", "/refreshToken/**", "/login/**", "/register","/swagger-ui/index.html").permitAll();
-        http.authorizeRequests().anyRequest().permitAll(); // TODO changer après les tests
+//        http.authorizeRequests().anyRequest().permitAll(); // TODO supprimer après les tests
         http.headers().frameOptions().disable();
-//        http.authorizeRequests().anyRequest().authenticated();
+        http.authorizeRequests().anyRequest().authenticated();
         http.addFilterBefore(new JWTAuthorizationFilter(this.jwtService), UsernamePasswordAuthenticationFilter.class);
         http.addFilter(new JWTAuthenticationFilter(this.authenticationManagerBean()));
     }

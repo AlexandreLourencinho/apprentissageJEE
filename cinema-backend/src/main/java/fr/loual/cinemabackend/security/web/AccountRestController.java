@@ -20,27 +20,29 @@ public class AccountRestController {
 
     private AccountService accountService;
 
-    //TODO : DTOS + gestion d'erreurs + permissions
+    //TODO : DTOS + gestion d'erreurs
+    // TODO login ok, jwt ok
+    // ** test = ok
 
     @PostMapping("/register")
     public AppUser registerUser(@RequestBody AppUser appUser) throws NullUserRequiredFieldException {
         return accountService.addNewUser(appUser);
-    }
+    }// **
 
     @PostMapping("/roles")
     public AppRole addNewRole(@RequestBody AppRole appRole) throws NullRoleRequiredFieldException {
         return accountService.addNewRole(appRole);
-    }
+    }// **
 
     @PostMapping("/add-role-to-user")
     public void addRoleToUser(@RequestBody AppUser appUser, AppRole appRole) throws UserNotFoundException, RoleNotFoundException {
         accountService.addRoleToUser(appUser, appRole);
-    }
+    } // **
 
     @GetMapping("/users")
     public List<AppUser> listUsers() throws UserNotFoundException {
         return accountService.listUsers();
-    }
+    } // **
 
 
 
