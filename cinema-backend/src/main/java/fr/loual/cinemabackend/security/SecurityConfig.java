@@ -29,9 +29,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        http.authorizeRequests().antMatchers("/h2-console/**", "/refreshToken/**", "/login/**").permitAll();
+        http.authorizeRequests().antMatchers("/h2-console/**", "/refreshToken/**", "/login/**", "/register","/swagger-ui/index.html").permitAll();
+        http.authorizeRequests().anyRequest().permitAll(); // TODO changer après les tests
         http.headers().frameOptions().disable();
-        http.authorizeRequests().anyRequest().authenticated();
+//        http.authorizeRequests().anyRequest().authenticated();
         http.addFilterBefore(new JWTAuthorizationFilter(this.jwtService), UsernamePasswordAuthenticationFilter.class);
         http.addFilter(new JWTAuthenticationFilter(this.authenticationManagerBean()));
     }
