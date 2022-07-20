@@ -36,10 +36,10 @@ public class MovieProjectionServiceImpl implements MovieProjectionService {
     // permettra de ne pas avoir 50 Exceptions qui au final fond la même chose
 
     @Override
-    public CityDTO addCity(CityDTO cityDTO) throws InvalidCityArgumentException, CityAlreadyExistsException {
-        if(!dtoAndEntityCheck.checkCityDTO(cityDTO)) throw new InvalidCityArgumentException(ServicesUtils.exceptionMessage("une ville"));
+    public CityDTO addCity(CityDTO cityDTO) throws InvalidArgumentException, AlreadyExistsException {
+        if(!dtoAndEntityCheck.checkCityDTO(cityDTO)) throw new InvalidArgumentException(ServicesUtils.exceptionMessage("une ville"));
         City cityRepo = cityRepository.findByName(cityDTO.getName());
-        if(cityRepo != null) throw new CityAlreadyExistsException(ServicesUtils.alreadyExistsErrorMessage("La ville"));
+        if(cityRepo != null) throw new AlreadyExistsException(ServicesUtils.alreadyExistsErrorMessage("La ville"));
         log.info("--Enregistrement d'une nouvelle ville...-");
         City city = mapper.cityDTOToCity(cityDTO);
         cityRepository.save(city);
@@ -48,10 +48,10 @@ public class MovieProjectionServiceImpl implements MovieProjectionService {
     }
 
     @Override
-    public CinemaDTO addCinema(CinemaDTO cinemaDTO) throws InvalidCinemaArgumentException, CinemaAlreadyExistsException {
-        if(!dtoAndEntityCheck.checkCinemaDTO(cinemaDTO)) throw new InvalidCinemaArgumentException(ServicesUtils.exceptionMessage("un cinéma"));
+    public CinemaDTO addCinema(CinemaDTO cinemaDTO) throws InvalidArgumentException, AlreadyExistsException {
+        if(!dtoAndEntityCheck.checkCinemaDTO(cinemaDTO)) throw new InvalidArgumentException(ServicesUtils.exceptionMessage("un cinéma"));
         Cinema cinemaRepo = cinemaRepository.findByAltitudeAndLatitudeAndLongitude(cinemaDTO.getAltitude(), cinemaDTO.getLatitude(), cinemaDTO.getLongitude());
-        if(cinemaRepo != null) throw new CinemaAlreadyExistsException(ServicesUtils.alreadyExistsErrorMessage("Le cinéma"));
+        if(cinemaRepo != null) throw new AlreadyExistsException(ServicesUtils.alreadyExistsErrorMessage("Le cinéma"));
         log.info("--Enregistrement d'un nouveau cinéma...--");
         Cinema cinema = mapper.cinemaDTOToCinema(cinemaDTO);
         cinema.setId(UUID.randomUUID().toString());
@@ -61,10 +61,10 @@ public class MovieProjectionServiceImpl implements MovieProjectionService {
     }
 
     @Override
-    public CategoryDTO addCategory(CategoryDTO categoryDTO) throws InvalidCategoryArgumentException, CategoryAlreadyExistsException {
-        if(!dtoAndEntityCheck.checkCategoryDTO(categoryDTO)) throw new InvalidCategoryArgumentException(ServicesUtils.exceptionMessage("une catégorie"));
+    public CategoryDTO addCategory(CategoryDTO categoryDTO) throws InvalidArgumentException, AlreadyExistsException {
+        if(!dtoAndEntityCheck.checkCategoryDTO(categoryDTO)) throw new InvalidArgumentException(ServicesUtils.exceptionMessage("une catégorie"));
         Category categoryRepo = categoryRepository.findByName(categoryDTO.getName());
-        if(categoryRepo != null) throw new CategoryAlreadyExistsException(ServicesUtils.alreadyExistsErrorMessage("La catégorie"));
+        if(categoryRepo != null) throw new AlreadyExistsException(ServicesUtils.alreadyExistsErrorMessage("La catégorie"));
         log.info("--Enregistrement d'une nouvelle catégorie...--");
         Category category = mapper.categoryDTOToCategory(categoryDTO);
         categoryRepository.save(category);
@@ -73,10 +73,10 @@ public class MovieProjectionServiceImpl implements MovieProjectionService {
     }
 
     @Override
-    public MovieDTO addMovie(MovieDTO movieDTO) throws InvalidMovieArgumentException, MovieAlreadyExistsException {
-        if(!dtoAndEntityCheck.checkMovieDTO(movieDTO)) throw new InvalidMovieArgumentException(ServicesUtils.exceptionMessage("un film"));
+    public MovieDTO addMovie(MovieDTO movieDTO) throws InvalidArgumentException, AlreadyExistsException {
+        if(!dtoAndEntityCheck.checkMovieDTO(movieDTO)) throw new InvalidArgumentException(ServicesUtils.exceptionMessage("un film"));
         Movie movieRepo = movieRepository.findByTitleAndMakerAndReleaseDate(movieDTO.getTitle(), movieDTO.getMaker(), movieDTO.getReleaseate());
-        if (movieRepo != null) throw new MovieAlreadyExistsException(ServicesUtils.alreadyExistsErrorMessage("Le film"));
+        if (movieRepo != null) throw new AlreadyExistsException(ServicesUtils.alreadyExistsErrorMessage("Le film"));
         log.info("--Enregistrement d'un nouveau film...--");
         Movie movie = mapper.movieDTOToMovie(movieDTO);
         movie.setId(UUID.randomUUID().toString());
@@ -86,13 +86,13 @@ public class MovieProjectionServiceImpl implements MovieProjectionService {
     }
 
     @Override
-    public RoomDTO addRoomToCinema(RoomDTO roomDTO) throws InvalidRoomArgumentException, RoomAlreadyExistsException, CinemaNotFoundException {
-        if(!dtoAndEntityCheck.checkRoomDTO(roomDTO)) throw new InvalidRoomArgumentException(ServicesUtils.exceptionMessage("une salle"));
+    public RoomDTO addRoomToCinema(RoomDTO roomDTO) throws InvalidArgumentException, NotFoundException, AlreadyExistsException {
+        if(!dtoAndEntityCheck.checkRoomDTO(roomDTO)) throw new InvalidArgumentException(ServicesUtils.exceptionMessage("une salle"));
         Cinema cine = cinemaRepository.findByAltitudeAndLatitudeAndLongitude(roomDTO.getCinema().getAltitude(),
                 roomDTO.getCinema().getLatitude(), roomDTO.getCinema().getLongitude());
-        if(cine == null) throw new CinemaNotFoundException(ServicesUtils.notFoundMessage("Le cinéma"));
+        if(cine == null) throw new NotFoundException(ServicesUtils.notFoundMessage("Le cinéma"));
         Room roomRepo = roomRepository.findByNameAndCinema(roomDTO.getName(), mapper.cinemaDTOToCinema(roomDTO.getCinema()));
-        if (roomRepo != null) throw new RoomAlreadyExistsException(ServicesUtils.alreadyExistsErrorMessage("La salle"));
+        if (roomRepo != null) throw new AlreadyExistsException(ServicesUtils.alreadyExistsErrorMessage("La salle"));
         log.info("--Enregistrement d'une nouvelle salle...--");
         Room room = mapper.roomDTOToRoom(roomDTO);
         room.setId(UUID.randomUUID().toString());

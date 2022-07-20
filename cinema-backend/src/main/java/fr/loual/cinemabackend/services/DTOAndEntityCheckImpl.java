@@ -1,10 +1,12 @@
 package fr.loual.cinemabackend.services;
 
 import fr.loual.cinemabackend.dtos.*;
+import org.springframework.stereotype.Service;
 
 import java.util.Objects;
 import java.util.stream.Stream;
 
+@Service
 public class DTOAndEntityCheckImpl implements DTOAndEntityCheck {
 
     @Override

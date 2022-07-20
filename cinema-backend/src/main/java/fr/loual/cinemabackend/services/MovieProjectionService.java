@@ -8,11 +8,11 @@ import java.util.List;
 
 public interface MovieProjectionService {
 
-    CityDTO addCity(CityDTO cityDTO) throws InvalidCityArgumentException, CityAlreadyExistsException;
-    CinemaDTO addCinema(CinemaDTO cinemaDTO) throws InvalidCinemaArgumentException, CinemaAlreadyExistsException;
-    CategoryDTO addCategory(CategoryDTO categoryDTO) throws InvalidCategoryArgumentException, CategoryAlreadyExistsException;
-    MovieDTO addMovie(MovieDTO movieDTO) throws InvalidMovieArgumentException, MovieAlreadyExistsException;
-    RoomDTO addRoomToCinema(RoomDTO roomDTO) throws InvalidRoomArgumentException, RoomAlreadyExistsException, CinemaNotFoundException;
+    CityDTO addCity(CityDTO cityDTO) throws InvalidArgumentException, AlreadyExistsException;
+    CinemaDTO addCinema(CinemaDTO cinemaDTO) throws InvalidArgumentException, AlreadyExistsException;
+    CategoryDTO addCategory(CategoryDTO categoryDTO) throws AlreadyExistsException, InvalidArgumentException;
+    MovieDTO addMovie(MovieDTO movieDTO) throws InvalidArgumentException, AlreadyExistsException;
+    RoomDTO addRoomToCinema(RoomDTO roomDTO) throws InvalidArgumentException, NotFoundException, AlreadyExistsException;
     PlaceDTO addPlaceToRoom(PlaceDTO placeDTO);
     TicketDTO addTicket(TicketDTO ticketDTO);
     SeanceDTO addSeance(SeanceDTO seanceDTO);
