@@ -41,10 +41,10 @@ public class MovieProjectionServiceImpl implements MovieProjectionService {
         City cityRepo = cityRepository.findByName(cityDTO.getName());
         if(cityRepo != null) throw new AlreadyExistsException(ServicesUtils.alreadyExistsErrorMessage("La ville"));
         log.info("--Enregistrement d'une nouvelle ville...-");
-        City city = mapper.cityDTOToCity(cityDTO);
+        City city = mapper.DTOToCity(cityDTO);
         cityRepository.save(city);
         log.info(ServicesUtils.infoMessage("La ville", city.getName()));
-        return mapper.cityToCityDTO(city);
+        return mapper.cityToDTO(city);
     }
 
     @Override
@@ -53,11 +53,11 @@ public class MovieProjectionServiceImpl implements MovieProjectionService {
         Cinema cinemaRepo = cinemaRepository.findByAltitudeAndLatitudeAndLongitude(cinemaDTO.getAltitude(), cinemaDTO.getLatitude(), cinemaDTO.getLongitude());
         if(cinemaRepo != null) throw new AlreadyExistsException(ServicesUtils.alreadyExistsErrorMessage("Le cinéma"));
         log.info("--Enregistrement d'un nouveau cinéma...--");
-        Cinema cinema = mapper.cinemaDTOToCinema(cinemaDTO);
+        Cinema cinema = mapper.DTOToCinema(cinemaDTO);
         cinema.setId(UUID.randomUUID().toString());
         cinemaRepository.save(cinema);
         log.info(ServicesUtils.infoMessage("Le cinéma", cinema.getName()));
-        return mapper.cinemaToCinemaDTO(cinema);
+        return mapper.cinemaToDTO(cinema);
     }
 
     @Override
@@ -66,10 +66,10 @@ public class MovieProjectionServiceImpl implements MovieProjectionService {
         Category categoryRepo = categoryRepository.findByName(categoryDTO.getName());
         if(categoryRepo != null) throw new AlreadyExistsException(ServicesUtils.alreadyExistsErrorMessage("La catégorie"));
         log.info("--Enregistrement d'une nouvelle catégorie...--");
-        Category category = mapper.categoryDTOToCategory(categoryDTO);
+        Category category = mapper.DTOToCategory(categoryDTO);
         categoryRepository.save(category);
         log.info(ServicesUtils.infoMessage("La catégorie", category.getName()));
-        return mapper.categoryToCategoryDTO(category);
+        return mapper.categoryToDTO(category);
     }
 
     @Override
@@ -78,11 +78,11 @@ public class MovieProjectionServiceImpl implements MovieProjectionService {
         Movie movieRepo = movieRepository.findByTitleAndMakerAndReleaseDate(movieDTO.getTitle(), movieDTO.getMaker(), movieDTO.getReleaseate());
         if (movieRepo != null) throw new AlreadyExistsException(ServicesUtils.alreadyExistsErrorMessage("Le film"));
         log.info("--Enregistrement d'un nouveau film...--");
-        Movie movie = mapper.movieDTOToMovie(movieDTO);
+        Movie movie = mapper.DTOToMovie(movieDTO);
         movie.setId(UUID.randomUUID().toString());
         movieRepository.save(movie);
         log.info(ServicesUtils.infoMessage("Le film", movie.getTitle()));
-        return mapper.movieToMovieDTO(movie);
+        return mapper.movieToDTO(movie);
     }
 
     @Override
@@ -91,17 +91,17 @@ public class MovieProjectionServiceImpl implements MovieProjectionService {
         Cinema cine = cinemaRepository.findByAltitudeAndLatitudeAndLongitude(roomDTO.getCinema().getAltitude(),
                 roomDTO.getCinema().getLatitude(), roomDTO.getCinema().getLongitude());
         if(cine == null) throw new NotFoundException(ServicesUtils.notFoundMessage("Le cinéma"));
-        Room roomRepo = roomRepository.findByNameAndCinema(roomDTO.getName(), mapper.cinemaDTOToCinema(roomDTO.getCinema()));
+        Room roomRepo = roomRepository.findByNameAndCinema(roomDTO.getName(), mapper.DTOToCinema(roomDTO.getCinema()));
         if (roomRepo != null) throw new AlreadyExistsException(ServicesUtils.alreadyExistsErrorMessage("La salle"));
         log.info("--Enregistrement d'une nouvelle salle...--");
-        Room room = mapper.roomDTOToRoom(roomDTO);
+        Room room = mapper.DTOToRoom(roomDTO);
         room.setId(UUID.randomUUID().toString());
         Cinema cinema = room.getCinema();
         cinema.getRooms().add(room);
         roomRepository.save(room);
         cinemaRepository.save(cinema);
         log.info(ServicesUtils.infoMessage("La salle", room.getName()));
-        return mapper.roomToRoomDTO(room);
+        return mapper.roomToDTO(room);
     }
 
     @Override
