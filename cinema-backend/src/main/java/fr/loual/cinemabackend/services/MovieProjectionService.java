@@ -17,9 +17,10 @@ public interface MovieProjectionService {
     TicketDTO addTicket(TicketDTO ticketDTO);
     SeanceDTO addSeance(SeanceDTO seanceDTO);
 
-    List<CityDTO> getCities();
-    List<CinemaDTO> getCinemaByCity(CityDTO cityDTO);
-    List<SeanceDTO> getSeanceForMovie(MovieDTO movieDTO, Date date);
+    List<CityDTO> getCities() throws NotFoundException;
+    List<CinemaDTO> getCinemaByCity(CityDTO cityDTO) throws NotFoundException;
+    List<RoomDTO> getRoomByCinema(CinemaDTO cinema) throws NotFoundException;
+    List<SeanceDTO> getSeanceForMovie(MovieDTO movieDTO,CinemaDTO cinema, Date date) throws NotFoundException;
 
 
 }
