@@ -17,5 +17,7 @@ public interface CinemaMapper {
     MovieDTO movieToDTO(Movie movie);
     Room DTOToRoom(RoomDTO roomDTO);
     RoomDTO roomToDTO(Room room);
+    Seance DTOToSeance(SeanceDTO seanceDTO);
+    SeanceDTO seanceToDTO(Seance seance);
 
 }
