@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Service
@@ -120,18 +121,41 @@ public class MovieProjectionServiceImpl implements MovieProjectionService {
     }
 
     @Override
-    public List<CityDTO> getCities() {
-        return null;
+    public List<CityDTO> getCities() throws NotFoundException {
+        List<City> cityList = cityRepository.findAll();
+        if (cityList.isEmpty()) throw new NotFoundException(ServicesUtils.notFoundMessage("Les villes"));
+
+        return cityList.stream().map(city -> mapper.cityToDTO(city)).collect(Collectors.toList());
     }
 
     @Override
-    public List<CinemaDTO> getCinemaByCity(CityDTO city) {
-        return null;
+    public List<CinemaDTO> getCinemaByCity(CityDTO city) throws NotFoundException {
+        City city1 = cityRepository.findByName(city.getName());
+        if(city1 == null) throw new NotFoundException(ServicesUtils.notFoundMessage("La ville"));
+        List<Cinema> listCin = cinemaRepository.findByCity(city1);
+        if(listCin.isEmpty()) throw new NotFoundException(ServicesUtils.notFoundMessage("Les cinémas"));
+
+        return listCin.stream().map(cinema -> mapper.cinemaToDTO(cinema)).collect(Collectors.toList());
     }
 
     @Override
-    public List<SeanceDTO> getSeanceForMovie(MovieDTO movie, Date date) {
-        return null;
+    public List<RoomDTO> getRoomByCinema(CinemaDTO cinema) throws NotFoundException {
+        Cinema cinema1 = cinemaRepository.findById(cinema.getId()).orElse(null);
+        if(cinema1 == null) throw new NotFoundException(ServicesUtils.notFoundMessage("Le cinéma"));
+        List<Room> listRoom = roomRepository.findByCinema(cinema1);
+        if(listRoom.isEmpty()) throw new NotFoundException(ServicesUtils.notFoundMessage("Les salles"));
+
+        return listRoom.stream().map(room -> mapper.roomToDTO(room)).collect(Collectors.toList());
+    }
+
+
+    @Override
+    public List<SeanceDTO> getSeanceForMovie(MovieDTO movie,CinemaDTO cinema, Date date) throws NotFoundException {
+        Movie movie1 = movieRepository.findById(movie.getId()).orElse(null);
+        Cinema cinema1 = cinemaRepository.findById(cinema.getId()).orElse(null);
+        if (movie1 == null || cinema1 == null) throw new NotFoundException(ServicesUtils.notFoundMessage("Le cinéma ou le film"));
+        List<Seance> listSeance = projectionRepository.findByMovieAndRoomCinema_IdAndBeginDateIsGreaterThan(movie1,cinema.getId(), date);
+        return listSeance.stream().map(seance -> mapper.seanceToDTO(seance)).collect(Collectors.toList());
     }
 
 }
